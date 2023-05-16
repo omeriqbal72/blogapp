@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const app = express();
 const personRoutes = require('./routes/userRoutes')
 const BlogRoutes = require('./routes/blogRoutes')
+const commentRoute = require('./routes/commentRoute')
 const model = require('./Dbmodels/userModels');
 const personModel = require("./Dbmodels/userModels");
 
@@ -14,6 +15,8 @@ mongoose
 
 app.use('/api/v1/users', personRoutes);
 app.use('/api/v1/blogs', BlogRoutes);
+app.use('/api/v1/blogs', commentRoute);
+
 
 
 app.listen(5000, () => { console.log("connection is established") })

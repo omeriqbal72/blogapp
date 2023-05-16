@@ -32,7 +32,7 @@ exports.newBlog = async (req, res) => {
         userExists.blogs.push(newBlog);
         await userExists.save();
         await newBlog.save();
-        
+
         return res.status(201).send({
             message: "Blog Added Successful",
             success: true,
@@ -55,7 +55,7 @@ exports.updateBlog = async (req, res) => {
 
         const { id } = req.params
         const { title, description, image } = req.body
-        const updateBlog = await blogModel.findByIdAndUpdate(id, { ...req.body }, { new: true })
+        const updateBlog = await blogsmodels.findByIdAndUpdate(id, { ...req.body }, { new: true })
         return res.status(200).send({
             message: 'Blog Updated',
             success: true,
@@ -75,7 +75,7 @@ exports.updateBlog = async (req, res) => {
 
 exports.getAllBlogs = async (req, res) => {
     try {
-        const allBlogs = await blogModel.find({});
+        const allBlogs = await blogsmodels.find({});
         if (allBlogs.length === 0) {
             return res.status(200).send({
                 message: "There are no blogs yet",
@@ -104,7 +104,7 @@ exports.getAllBlogs = async (req, res) => {
 exports.deleteBlog = async (req, res) => {
     try {
         const { id } = req.params
-        const delteblog = await blogModel.findOneAndDelete(id)
+        const delteblog = await blogsmodels.findOneAndDelete(id)
         return res.status(200).send({
             message: 'Blog Deleted.',
             success: true
@@ -123,7 +123,7 @@ exports.deleteBlog = async (req, res) => {
 exports.getOneBlog = async (req, res) => {
     try {
         const { id } = req.params
-        const oneBlog = await blogModel.findById(id)
+        const oneBlog = await blogsmodels.findById(id)
         if (!oneBlog) {
             return res.status(404).send({
                 message: 'Blog Not found',
